@@ -1,19 +1,23 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
-import { addCount } from './features/podcastStore/podcastStoreSlice'
+import { SinglePodcastFeed } from './features/podcastStore/SinglePodcastFeed';
+
 import { useDispatch } from 'react-redux'
+import { searchItunesForPodcast } from './features/podcastStore/podcastStoreSlice';
 
 function App() {
   const dispatch = useDispatch();
-  const onClick = () => {
-    dispatch(addCount())
+  
+  const onEnter = (e) => {
+    
+    if (e.key == 'Enter') 
+      dispatch(searchItunesForPodcast(e.target.value));
   }
 
   return (
     <div className="App">
-      <button onClick={onClick}>Click</button>
+      
+       <SinglePodcastFeed url={'https://www.giantbomb.com/feeds/podcast'} />
     </div>
   )
 }

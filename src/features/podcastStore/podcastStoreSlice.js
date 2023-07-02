@@ -1,16 +1,89 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {  XMLParser,  } from "fast-xml-parser";
+import { fetchItunesSearchPodcast, fetchPodcastFeedRSS } from "../../app/api";
+
+
+const CORS_PROXY_URL = "https://cors-proxy-pink.vercel.app/api/corsProxy";
+const ITUNES_SEARCH_URL = "https://itunes.apple.com/search";
+
+const initialState = {
+    singlePodcastFeedRSS: {
+        feed: null,
+        status: 'idle',
+        error: null
+    },
+    searchResults: {
+        results: null,
+        status: 'idle',
+        error: null
+    }
+}
+
+export const getPodcastFeedRSS = createAsyncThunk('podcastStore/getPodcastFeedRSS',
+    async (feedURL) => {
+       
+        return await fetchPodcastFeedRSS(feedURL);
+});
+
+export const searchItunesForPodcast = createAsyncThunk('podcastStore/searchItunesForPodcast',
+    async (query) => {
+       return await fetchItunesSearchPodcast(query)
+      
+       
+ });
+
 
 const podcastStoreSlice = createSlice({
     name: 'podcastStore',
-    initialState: {
-        count: 0
-    },
+    initialState: initialState,
     reducers: {
-        addCount(state, action) {
-            state.count++;
+        
+    },
+    extraReducers: {
+        [getPodcastFeedRSS.pending]: (state) => {
+            state.singlePodcastFeedRSS.status = 'pending'
+        },
+        [getPodcastFeedRSS.fulfilled]: (state, action) => {
+            state.singlePodcastFeedRSS.feed = action.payload;
+            state.singlePodcastFeedRSS.status = 'idle';
+        },
+        [getPodcastFeedRSS.rejected]: (state, action) => {
+            state.singlePodcastFeedRSS.status = "error";
+            state.error = action.payload.error;
+        },
+        [searchItunesForPodcast.pending]: (state) => {
+            state.searchResults.status = 'pending';
+        },
+        [searchItunesForPodcast.fulfilled]: (state, action) => {
+            state.searchResults.results = action.payload;
+            state.searchResults.status = 'idle';
+        },
+        [searchItunesForPodcast.rejected]: (state, action) => {
+            state.searchResults.status = 'error';
+            state.searchResults.error = action.payload;
         }
+        
     }
+
 });
 
-export const {addCount} = podcastStoreSlice.actions
+export const selectSinglePodcastFeedFromStore = (state) => {
+    
+    return state.podcastStore.singlePodcastFeedRSS.feed;
+}
+
+export const selectSinglePodcastFeedStatus = (state) => {
+    return state.podcastStore.singlePodcastFeedRSS.status;
+}
+
+export const selectSearchResults = (state) => {
+    return state.podcastStore.searchResults.results;
+}
+
+export const selectSearchResultsStatus = (state) => {
+    return state.podcastStore.searchResults.status;
+}
+
+
+
 export const podcastStoreReducer = podcastStoreSlice.reducer;
