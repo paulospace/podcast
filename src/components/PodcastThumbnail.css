@@ -1,0 +1,33 @@
+.PodcastThumbnail {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    max-width: 200px;
+    height: fit-content;
+    margin: 1rem;
+    border: 1px solid rgba(0,0,0,0.5);
+    border-radius: 1rem;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.PodcastThumbnail-image {
+    width: 100%;
+    height: 100%;
+}
+
+.PodcastThumbnail-image img {
+    width: 100%;
+}
+.PodcastThumbnail-info {
+    
+    padding: 1rem 0.5rem;
+}
+.PodcastThumbnail-name {
+    font-weight: 1000;
+}
+
+.PodcastThumbnail-author {
+    padding-top: 0.1rem;
+    font-size: 0.9rem;
+}

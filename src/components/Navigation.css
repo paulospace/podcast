@@ -1,0 +1,13 @@
+.Navigation {
+    max-width: 200px;
+    height: 100%;
+    padding: 1rem;
+    background: #E0E6E5;
+}
+
+.Navigation-search-input {
+    background-color: rgba(0,0,0,0);
+    border: 1px solid #ADB3B2;
+    padding: 0.25em;
+
+}

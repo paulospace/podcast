@@ -27,9 +27,7 @@ export const getPodcastFeedRSS = createAsyncThunk('podcastStore/getPodcastFeedRS
 
 export const searchItunesForPodcast = createAsyncThunk('podcastStore/searchItunesForPodcast',
     async (query) => {
-       return await fetchItunesSearchPodcast(query)
-      
-       
+       return await fetchItunesSearchPodcast(query);
  });
 
 
@@ -45,7 +43,7 @@ const podcastStoreSlice = createSlice({
         },
         [getPodcastFeedRSS.fulfilled]: (state, action) => {
             state.singlePodcastFeedRSS.feed = action.payload;
-            state.singlePodcastFeedRSS.status = 'idle';
+            state.singlePodcastFeedRSS.status = 'Success';
         },
         [getPodcastFeedRSS.rejected]: (state, action) => {
             state.singlePodcastFeedRSS.status = "error";
@@ -56,7 +54,7 @@ const podcastStoreSlice = createSlice({
         },
         [searchItunesForPodcast.fulfilled]: (state, action) => {
             state.searchResults.results = action.payload;
-            state.searchResults.status = 'idle';
+            state.searchResults.status = 'success';
         },
         [searchItunesForPodcast.rejected]: (state, action) => {
             state.searchResults.status = 'error';
@@ -77,6 +75,8 @@ export const selectSinglePodcastFeedStatus = (state) => {
 }
 
 export const selectSearchResults = (state) => {
+    
+    
     return state.podcastStore.searchResults.results;
 }
 
