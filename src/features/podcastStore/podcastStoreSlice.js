@@ -1,10 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import {  XMLParser,  } from "fast-xml-parser";
+
 import { fetchItunesSearchPodcast, fetchPodcastFeedRSS } from "../../app/api";
 
 
-const CORS_PROXY_URL = "https://cors-proxy-pink.vercel.app/api/corsProxy";
-const ITUNES_SEARCH_URL = "https://itunes.apple.com/search";
 
 const initialState = {
     singlePodcastFeedRSS: {
@@ -43,7 +41,7 @@ const podcastStoreSlice = createSlice({
         },
         [getPodcastFeedRSS.fulfilled]: (state, action) => {
             state.singlePodcastFeedRSS.feed = action.payload;
-            state.singlePodcastFeedRSS.status = 'Success';
+            state.singlePodcastFeedRSS.status = 'success';
         },
         [getPodcastFeedRSS.rejected]: (state, action) => {
             state.singlePodcastFeedRSS.status = "error";

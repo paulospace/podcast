@@ -14,12 +14,8 @@ const useQuery = () => {
 }
 
 const SearchResults = () => {
-    let query = useQuery();
-    query = query.get('q');
-    let hasQuery = true;
-    if (!query) {
-        hasQuery = false;
-    }
+    let query = useQuery().get('q');
+    let hasQuery = (query) ? true : false;
 
     const dispatch = useDispatch();
     const status = useSelector(selectSearchResultsStatus);
