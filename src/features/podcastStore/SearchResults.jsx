@@ -22,12 +22,9 @@ const SearchResults = () => {
     const searchResults = useSelector(selectSearchResults);
     
     useEffect(() => {
-        
         if (status === 'idle') {
             dispatch(searchItunesForPodcast(query));
         }
-
-       
     }, [status, query, dispatch]);
 
     console.log(searchResults)

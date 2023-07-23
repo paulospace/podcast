@@ -1,4 +1,4 @@
-import { Router, Switch, Route, Redirect } from 'react-router-dom';
+import { Router, Switch, Route } from 'react-router-dom';
 import { SearchResults } from '../features/podcastStore/SearchResults';
 import { SinglePodcastFeed} from '../features/podcastStore/SinglePodcastFeed';
 import Navigation from '../components/Navigation';
@@ -18,7 +18,6 @@ export const MainRoute = () => {
                     <Route exact path="/" component={Test} />
                     <Route  path="/search" component={SearchResults} />
                     <Route exact path="/podcast" component={SinglePodcastFeed} />
-                    <Redirect to="/" />
                 </Switch>
             </div>
         </Router>
