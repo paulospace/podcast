@@ -1,25 +1,45 @@
-import { Router, Switch, Route } from 'react-router-dom';
+import { createBrowserRouter, Outlet } from 'react-router-dom';
 import { SearchResults } from '../features/podcastStore/SearchResults';
 import { SinglePodcastFeed} from '../features/podcastStore/SinglePodcastFeed';
 import Navigation from '../components/Navigation';
-import { createBrowserHistory } from 'history';
 import "./MainRoute.css";
-const Test = () => {
-    return <div>Test</div>
+import { resetSearchStatus } from '../features/podcastStore/podcastStoreSlice';
+import { store } from '../app/store';
+
+
+const searchLoader = (params) => {
+    const url = new URL(params.request.url);
+    const query =  url.searchParams.get('q');
+    store.dispatch(resetSearchStatus());
+    return { query }
 }
-const history = createBrowserHistory();
 
 export const MainRoute = () => {
     return (
-        <Router history={history}>
+        <>
             <Navigation />
-            <div className="MainContent">
-                <Switch>
-                    <Route exact path="/" component={Test} />
-                    <Route  path="/search" component={SearchResults} />
-                    <Route exact path="/podcast" component={SinglePodcastFeed} />
-                </Switch>
+            <div className="mainContent">
+                < Outlet />
             </div>
-        </Router>
+        </>
     )
 }
+
+export const router = createBrowserRouter([
+    {
+        path: '/',
+        element: <MainRoute />,
+        children: [
+            {
+                path: '/search',
+                element: <SearchResults />,
+                loader: searchLoader
+            },
+            {
+                path: '/podcast',
+                element: <SinglePodcastFeed />
+            }
+        ]
+    }
+])
+

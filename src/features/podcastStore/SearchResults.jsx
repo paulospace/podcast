@@ -1,49 +1,40 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux"
-import { useLocation } from 'react-router-dom';
-import { searchItunesForPodcast, selectSearchResults, selectSearchResultsStatus } from "./podcastStoreSlice";
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  searchItunesForPodcast,
+  selectSearchResults,
+  selectSearchResultsStatus,
+} from "./podcastStoreSlice";
 import { useEffect } from "react";
 import { PodcastThumbnail } from "../../components/PodcastThumbnail";
 
-import "./SearchResults.css"
-
-const useQuery = () => {
-    const {search} = useLocation();
-
-    return React.useMemo(() => new URLSearchParams(search), [search])
-}
+import "./SearchResults.css";
+import { useLoaderData } from "react-router-dom";
 
 const SearchResults = () => {
-    let query = useQuery().get('q');
-    let hasQuery = (query) ? true : false;
+  const { query } = useLoaderData();
+  let hasQuery = query ? true : false;
 
-    const dispatch = useDispatch();
-    const status = useSelector(selectSearchResultsStatus);
-    const searchResults = useSelector(selectSearchResults);
-    
-    useEffect(() => {
-        if (status === 'idle') {
-            dispatch(searchItunesForPodcast(query));
-        }
-    }, [status, query, dispatch]);
+  const dispatch = useDispatch();
+  const status = useSelector(selectSearchResultsStatus);
+  const searchResults = useSelector(selectSearchResults);
 
-    console.log(searchResults)
-
-    let content;
-    if (!hasQuery) {
-        content = <div>No Query Specified</div>
-    } else if (status === "success") {
-        console.log('1')
-        content = searchResults.results.map(podcast => {
-            return <PodcastThumbnail podcast={podcast} key={podcast.collectionId} />
-        });
+  useEffect(() => {
+    if (status === "idle") {
+      dispatch(searchItunesForPodcast(query));
     }
+  }, [query, dispatch]);
 
-    return (
-        <div className="SearchResults">
-            {content}
-        </div>
-    )
-}
+  let content;
+  if (!hasQuery) {
+    content = <div>No Query Specified</div>;
+  } else if (status === "success") {
+    content = searchResults.results.map((podcast) => {
+      return <PodcastThumbnail podcast={podcast} key={podcast.collectionId} />;
+    });
+  }
 
-export {SearchResults};
+  return <div className="SearchResults">{content}</div>;
+};
+
+export { SearchResults };

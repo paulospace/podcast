@@ -1,12 +1,12 @@
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './Navigation.css';
 
 const Navigation = () => {
-    const history = useHistory()
+    const navigate = useNavigate();
     const onKeyPress = (e) => {
-        console.log(e)
+
         if (e.key == "Enter") {
-            history.push(`/search?q=${e.target.value}`);
+            navigate(`/search?q=${e.target.value}`);
         }
     }
     return <div className="Navigation">

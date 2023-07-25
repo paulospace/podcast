@@ -1,4 +1,13 @@
-.MainContent {
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
+
+#root {
+  display: flex;
+  width: 100%;
+  flex-grow: 1;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.mainContent {
     width: 100%;
     display: flex;
     justify-content: center;
