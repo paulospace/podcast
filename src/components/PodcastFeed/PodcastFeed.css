@@ -1,0 +1,11 @@
+.PodcastFeed-Header {
+    width: 100%;
+    display: grid;
+}
+
+.PodcastFeed-Header-image {
+    width: 200px;
+}
+.PodcastFeed-Header-image img {
+    width: 200px;
+}
