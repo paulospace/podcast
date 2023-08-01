@@ -1,12 +1,25 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./PodcastFeed.css";
-import { addPodcastToLibrary } from "../../features/podcastLibrary/podcastLibrarySlice";
+import {
+  addPodcastToLibrary,
+  removePodcastFromLibrary,
+  selectedPodcastIsSubscribed,
+} from "../../features/podcastLibrary/podcastLibrarySlice";
 
 const PodcastFeed = (props) => {
   const dispatch = useDispatch();
+  const isSubscribed = useSelector((state) =>
+    selectedPodcastIsSubscribed(state, props.podcast.title)
+  );
   const subscribeButtonClicked = () => {
-    dispatch(addPodcastToLibrary(props.podcast));
+    if (!isSubscribed) {
+      dispatch(addPodcastToLibrary(props.podcast));
+    } else {
+      const payload = { podcastId: props.podcast.title };
+      dispatch(removePodcastFromLibrary(payload));
+    }
   };
+
   console.log(props);
   return (
     <div className="PodcastFeed">
@@ -20,8 +33,11 @@ const PodcastFeed = (props) => {
             {props.podcast.description}
           </div>
         </div>
+
         <div className="SubscribeButton">
-          <button onClick={subscribeButtonClicked}>Subscribe</button>
+          <button onClick={subscribeButtonClicked}>
+            {isSubscribed ? "Unsubscribe" : "Subscribe"}
+          </button>
         </div>
       </div>
       <div className="PodcastFeed-Episodes">
@@ -29,7 +45,7 @@ const PodcastFeed = (props) => {
           return (
             <div className="PodcastFeed-Episode" key={i}>
               <h3>{episode.title}</h3>
-              <div>{episode.description}</div>
+              <div>{episode["itunes:summary"]}</div>
             </div>
           );
         })}

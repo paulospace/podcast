@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import {
   getPodcastFeedRSS,
   selectSinglePodcastFeedFromStore,
@@ -8,25 +8,22 @@ import {
 } from "./podcastStoreSlice";
 import PodcastFeed from "../../components/PodcastFeed/Podcastfeed";
 
-const useQuery = () => {
-  const { search } = useLocation();
-
-  return React.useMemo(() => new URLSearchParams(search), [search]);
-};
-
 export const SinglePodcastFeed = () => {
-  const podcastURL = useQuery().get("url");
-  const hasValidURL = podcastURL ? true : false;
+  const { podcastUrl } = useLoaderData();
+  const hasValidURL = podcastUrl ? true : false;
 
   const dispatch = useDispatch();
   let podcastFeed = useSelector(selectSinglePodcastFeedFromStore);
   let status = useSelector(selectSinglePodcastFeedStatus);
 
-  useEffect(() => {
-    if (status === "idle") {
-      dispatch(getPodcastFeedRSS(podcastURL));
-    }
-  }, [podcastURL, dispatch]);
+  useEffect(
+    () => {
+      if (status === "idle") {
+        dispatch(getPodcastFeedRSS(podcastUrl));
+      }
+    },
+    /* eslint-disable */ [podcastUrl, dispatch]
+  );
 
   let content;
 
@@ -37,13 +34,8 @@ export const SinglePodcastFeed = () => {
   } else if (status === "peding") {
     content = <div className="loading">Loading...</div>;
   } else if (status === "success") {
-    if (podcastFeed)
-      content = (
-        <div className="singlePodcastFeed">
-          <PodcastFeed podcast={podcastFeed} />
-        </div>
-      );
+    if (podcastFeed) content = <PodcastFeed podcast={podcastFeed} />;
   }
 
-  return <div className="SinglePodcastFeed">{content}</div>;
+  return <>{content}</>;
 };

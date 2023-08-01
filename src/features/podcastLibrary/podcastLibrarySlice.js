@@ -1,17 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { v4 as uuidv4 } from "uuid";
+import localforage from "localforage";
 
+const state = localforage.getItem("library");
+console.log(state);
 const initialState = {
   librarySize: 0,
   podcasts: {},
 };
+
 const podcastLibrarySlice = createSlice({
   name: "podcastLibrary",
   initialState: initialState,
   reducers: {
     addPodcastToLibrary: (state, action) => {
-      console.log(action);
-      state.podcasts[uuidv4()] = action.payload;
+      if (state.podcasts[action.payload.title]) {
+        return;
+      }
+
+      state.podcasts[action.payload.title] = action.payload;
       state.librarySize++;
     },
     removePodcastFromLibrary: (state, action) => {
@@ -23,12 +29,22 @@ const podcastLibrarySlice = createSlice({
         action.payload.episodeId
       ].listened = true;
     },
+    marsEpisodeAsNotListened: (state, action) => {
+      state.podcasts[actions.payload.podcastId].item[
+        action.payload.episodeId
+      ].listened = false;
+    },
   },
 });
 
+export const selectedPodcastIsSubscribed = (state, id) => {
+  return state.podcastLibrary.podcasts[id] ? true : false;
+};
 export const {
   addPodcastToLibrary,
   removePodcastFromLibrary,
   markEpisodeAsListened,
 } = podcastLibrarySlice.actions;
+
+export const setLibraryLocal = (state) => (next) => async (action) => {};
 export const podcastLibraryReducer = podcastLibrarySlice.reducer;

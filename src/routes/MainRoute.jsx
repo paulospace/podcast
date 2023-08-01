@@ -3,7 +3,10 @@ import { SearchResults } from "../features/podcastStore/SearchResults";
 import { SinglePodcastFeed } from "../features/podcastStore/SinglePodcastFeed";
 import Navigation from "../components/Navigation";
 import "./MainRoute.css";
-import { resetSearchStatus } from "../features/podcastStore/podcastStoreSlice";
+import {
+  resetSearchStatus,
+  resetSinglePodcastFeedStatus,
+} from "../features/podcastStore/podcastStoreSlice";
 import { store } from "../app/store";
 
 const searchLoader = (params) => {
@@ -11,6 +14,13 @@ const searchLoader = (params) => {
   const query = url.searchParams.get("q");
   store.dispatch(resetSearchStatus());
   return { query };
+};
+
+const podcastFeedLoader = (params) => {
+  const url = new URL(params.request.url);
+  const podcastUrl = url.searchParams.get("url");
+  store.dispatch(resetSinglePodcastFeedStatus());
+  return { podcastUrl };
 };
 
 export const MainRoute = () => {
@@ -24,6 +34,7 @@ export const MainRoute = () => {
   );
 };
 
+/* eslint-disable-line */
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -37,6 +48,7 @@ export const router = createBrowserRouter([
       {
         path: "/podcast",
         element: <SinglePodcastFeed />,
+        loader: podcastFeedLoader,
       },
     ],
   },

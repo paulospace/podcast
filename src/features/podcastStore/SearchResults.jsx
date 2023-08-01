@@ -19,11 +19,14 @@ const SearchResults = () => {
   const status = useSelector(selectSearchResultsStatus);
   const searchResults = useSelector(selectSearchResults);
 
-  useEffect(() => {
-    if (status === "idle") {
-      dispatch(searchItunesForPodcast(query));
-    }
-  }, [query, dispatch]);
+  useEffect(
+    () => {
+      if (status === "idle") {
+        dispatch(searchItunesForPodcast(query));
+      }
+    },
+    /*eslint-disable */ [query, dispatch]
+  );
 
   let content;
   if (!hasQuery) {
