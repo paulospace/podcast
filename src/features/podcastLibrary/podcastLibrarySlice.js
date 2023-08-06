@@ -40,6 +40,14 @@ const podcastLibrarySlice = createSlice({
 export const selectedPodcastIsSubscribed = (state, id) => {
   return state.podcastLibrary.podcasts[id] ? true : false;
 };
+
+export const selectLibrary = (state) => {
+  return state.podcastLibrary.podcasts;
+};
+
+export const selectPodcast = (state, podcastId) => {
+  return state.podcastLibrary.podcasts[podcastId];
+};
 export const {
   addPodcastToLibrary,
   removePodcastFromLibrary,

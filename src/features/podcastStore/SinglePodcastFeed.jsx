@@ -15,7 +15,7 @@ export const SinglePodcastFeed = () => {
   const dispatch = useDispatch();
   let podcastFeed = useSelector(selectSinglePodcastFeedFromStore);
   let status = useSelector(selectSinglePodcastFeedStatus);
-
+  console.log(podcastFeed);
   useEffect(
     () => {
       if (status === "idle") {

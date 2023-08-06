@@ -28,7 +28,7 @@ const fetchPodcastFeedRSS = async (feedURL) => {
 const fetchItunesSearchPodcast = async (query) => {
   const itunesURL = new URL(`${ITUNES_SEARCH_URL}?term=${query}&media=podcast`);
   const res = await (await fetch(itunesURL)).json();
-  console.log(res);
+
   return res;
 };
 

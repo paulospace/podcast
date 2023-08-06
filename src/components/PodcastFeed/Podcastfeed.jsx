@@ -1,4 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
+import parse from "html-react-parser";
+import sanitize from "sanitize-html";
 import "./PodcastFeed.css";
 import {
   addPodcastToLibrary,
@@ -6,6 +8,10 @@ import {
   selectedPodcastIsSubscribed,
 } from "../../features/podcastLibrary/podcastLibrarySlice";
 
+const sanitizeHtmlConfig = {
+  allowedTags: [],
+  disallowedTagdMode: "discard",
+};
 const PodcastFeed = (props) => {
   const dispatch = useDispatch();
   const isSubscribed = useSelector((state) =>
@@ -20,7 +26,6 @@ const PodcastFeed = (props) => {
     }
   };
 
-  console.log(props);
   return (
     <div className="PodcastFeed">
       <div className="PodcastFeed-Header">
@@ -30,7 +35,7 @@ const PodcastFeed = (props) => {
         <div className="PodcastFeed-Header-info">
           <h2>{props.podcast.title}</h2>
           <div className="PodcastFeed-Header-description">
-            {props.podcast.description}
+            {parse(props.podcast.description)}
           </div>
         </div>
 
@@ -45,7 +50,12 @@ const PodcastFeed = (props) => {
           return (
             <div className="PodcastFeed-Episode" key={i}>
               <h3>{episode.title}</h3>
-              <div>{episode["itunes:summary"]}</div>
+              <div>
+                {`${sanitize(episode.description, sanitizeHtmlConfig).slice(
+                  0,
+                  300
+                )}...`}
+              </div>
             </div>
           );
         })}

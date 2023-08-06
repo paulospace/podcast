@@ -8,6 +8,8 @@ import {
   resetSinglePodcastFeedStatus,
 } from "../features/podcastStore/podcastStoreSlice";
 import { store } from "../app/store";
+import { PodcastLibraryPage } from "../features/podcastLibrary/PodcastLibraryPage";
+import { PodcastLibraryFeed } from "../features/podcastLibrary/PodcastLibraryFeed";
 
 const searchLoader = (params) => {
   const url = new URL(params.request.url);
@@ -23,6 +25,12 @@ const podcastFeedLoader = (params) => {
   return { podcastUrl };
 };
 
+const podcastLibraryFeedLoader = (params) => {
+  console.log(params);
+  return {
+    podcastId: params.params.podcastId,
+  };
+};
 export const MainRoute = () => {
   return (
     <>
@@ -40,6 +48,15 @@ export const router = createBrowserRouter([
     path: "/",
     element: <MainRoute />,
     children: [
+      {
+        path: "/",
+        element: <PodcastLibraryPage />,
+      },
+      {
+        path: "library/:podcastId",
+        element: <PodcastLibraryFeed />,
+        loader: podcastLibraryFeedLoader,
+      },
       {
         path: "/search",
         element: <SearchResults />,
