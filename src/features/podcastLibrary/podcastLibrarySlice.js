@@ -30,7 +30,7 @@ const podcastLibrarySlice = createSlice({
       ].listened = true;
     },
     marsEpisodeAsNotListened: (state, action) => {
-      state.podcasts[actions.payload.podcastId].item[
+      state.podcasts[action.payload.podcastId].item[
         action.payload.episodeId
       ].listened = false;
     },
@@ -48,11 +48,19 @@ export const selectLibrary = (state) => {
 export const selectPodcast = (state, podcastId) => {
   return state.podcastLibrary.podcasts[podcastId];
 };
+
+export const selectPodcastEpisode = (state, podcastId, episodeId) => {
+  const podcast = state.podcastLibrary.podcasts[podcastId];
+  if (podcast) {
+    return podcast.episodes.find((item) => item.id == episodeId);
+  }
+  return null;
+};
+
 export const {
   addPodcastToLibrary,
   removePodcastFromLibrary,
   markEpisodeAsListened,
 } = podcastLibrarySlice.actions;
 
-export const setLibraryLocal = (state) => (next) => async (action) => {};
 export const podcastLibraryReducer = podcastLibrarySlice.reducer;

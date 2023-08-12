@@ -7,11 +7,10 @@ import {
 } from "./podcastStoreSlice";
 import { useEffect } from "react";
 import { PodcastThumbnail } from "../../components/PodcastThumbnail";
-
-import "./SearchResults.css";
 import { useLoaderData } from "react-router-dom";
+import "./PodcastStoreSearch.css";
 
-const SearchResults = () => {
+export const PodcastStoreSearch = () => {
   const { query } = useLoaderData();
   let hasQuery = query ? true : false;
 
@@ -39,5 +38,3 @@ const SearchResults = () => {
 
   return <div className="SearchResults">{content}</div>;
 };
-
-export { SearchResults };

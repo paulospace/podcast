@@ -7,6 +7,7 @@ import {
   removePodcastFromLibrary,
   selectedPodcastIsSubscribed,
 } from "../../features/podcastLibrary/podcastLibrarySlice";
+import { Link } from "react-router-dom";
 
 const sanitizeHtmlConfig = {
   allowedTags: [],
@@ -46,17 +47,19 @@ const PodcastFeed = (props) => {
         </div>
       </div>
       <div className="PodcastFeed-Episodes">
-        {props.podcast.item.map((episode, i) => {
+        {props.podcast.episodes.map((episode, i) => {
           return (
-            <div className="PodcastFeed-Episode" key={i}>
-              <h3>{episode.title}</h3>
-              <div>
-                {`${sanitize(episode.description, sanitizeHtmlConfig).slice(
-                  0,
-                  300
-                )}...`}
+            <Link to={`/library/${props.podcast.title}/${episode.id}`} key={i}>
+              <div className="PodcastFeed-Episode">
+                <h3>{episode.title}</h3>
+                <div>
+                  {`${sanitize(episode.description, sanitizeHtmlConfig).slice(
+                    0,
+                    300
+                  )}...`}
+                </div>
               </div>
-            </div>
+            </Link>
           );
         })}
       </div>

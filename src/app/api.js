@@ -17,10 +17,10 @@ const fetchPodcastFeedRSS = async (feedURL) => {
       .then((data) => data.text())
       .then((data) => xmlParser.parse(data));
 
-    return res.rss.channel;
+    return parsePodcastFeed(res.rss.channel);
   } catch (error) {
     return {
-      error: "could not fetch rss feed",
+      ...error,
     };
   }
 };
@@ -30,6 +30,53 @@ const fetchItunesSearchPodcast = async (query) => {
   const res = await (await fetch(itunesURL)).json();
 
   return res;
+};
+
+export const stringToHex = (string) => {
+  let hex,
+    result = "";
+
+  for (var i = 0; i < string.length; i++) {
+    hex = string.charCodeAt(i).toString(16);
+    result += hex;
+  }
+
+  return result;
+};
+
+export const parsePodcastFeed = (rss) => {
+  const feed = {
+    id: stringToHex(rss.title),
+    title: rss.title,
+    description: rss.description,
+    copyright: rss.copyright,
+    image: rss.image,
+    link: rss.link,
+    author: rss["itunes:owner"]["itunes:name"] || null,
+    episodes: [],
+  };
+
+  rss.item.forEach((item, i) => {
+    feed.episodes[i] = parsePodcastEpisode(item);
+  });
+
+  return feed;
+};
+
+const parsePodcastEpisode = (item) => {
+  console.log(item);
+  const episode = {
+    id: stringToHex(item.guid["#text"]),
+    title: item.title,
+    description: item.description,
+    content: item.enclosure,
+    image: item["itunes:image"]["@_href"] || null,
+    pubDate: item.pubDate,
+    explicit: item["itunes:explicit"] == "yes" ? true : false,
+    time: item["itunes:duration"] || null,
+  };
+
+  return episode;
 };
 
 export { fetchPodcastFeedRSS, fetchItunesSearchPodcast };

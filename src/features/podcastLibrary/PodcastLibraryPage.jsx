@@ -16,9 +16,7 @@ export const PodcastLibraryPage = () => {
               </div>
               <div className="PodcastThumbnail-info">
                 <div className="PodcastThumbnail-name">{podcast.title}</div>
-                <div className="PodcastThumbnail-author">
-                  {podcast["itunes:owner"]["itunes:name"]}
-                </div>
+                <div className="PodcastThumbnail-author">{podcast.author}</div>
               </div>
             </div>
           </Link>

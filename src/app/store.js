@@ -2,12 +2,19 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { podcastStoreReducer } from "../features/podcastStore/podcastStoreSlice";
 import { podcastLibraryReducer } from "../features/podcastLibrary/podcastLibrarySlice";
 import persistReducer from "redux-persist/es/persistReducer";
-import { storage } from "./db";
-import persistStore from "redux-persist/es/persistStore";
 
+import persistStore from "redux-persist/es/persistStore";
+import localforage from "localforage";
+
+const storage = {
+  db: localforage,
+  setItem: localforage.setItem,
+  getItem: localforage.getItem,
+  removeItem: localforage.removeItem,
+};
 const persistConfig = {
   key: "root",
-  storage: storage(),
+  storage: storage,
   blackList: ["podcastStore"],
 };
 

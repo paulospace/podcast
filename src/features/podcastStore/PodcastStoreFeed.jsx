@@ -8,14 +8,14 @@ import {
 } from "./podcastStoreSlice";
 import PodcastFeed from "../../components/PodcastFeed/Podcastfeed";
 
-export const SinglePodcastFeed = () => {
+export const PodcastStoreFeed = () => {
   const { podcastUrl } = useLoaderData();
   const hasValidURL = podcastUrl ? true : false;
 
   const dispatch = useDispatch();
   let podcastFeed = useSelector(selectSinglePodcastFeedFromStore);
   let status = useSelector(selectSinglePodcastFeedStatus);
-  console.log(podcastFeed);
+
   useEffect(
     () => {
       if (status === "idle") {
@@ -24,7 +24,7 @@ export const SinglePodcastFeed = () => {
     },
     /* eslint-disable */ [podcastUrl, dispatch]
   );
-
+  console.log(podcastFeed);
   let content;
 
   if (!hasValidURL) {

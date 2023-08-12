@@ -6,8 +6,9 @@ import { selectPodcast } from "./podcastLibrarySlice";
 
 export const PodcastLibraryFeed = () => {
   const { podcastId } = useLoaderData();
-  console.log(podcastId);
+
   const podcast = useSelector((state) => selectPodcast(state, podcastId));
+  console.log(podcast);
 
   // TODO: Create Error Page
   let content;

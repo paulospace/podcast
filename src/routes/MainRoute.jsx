@@ -1,6 +1,6 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
-import { SearchResults } from "../features/podcastStore/SearchResults";
-import { SinglePodcastFeed } from "../features/podcastStore/SinglePodcastFeed";
+import { PodcastStoreSearch } from "../features/podcastStore/PodcastStoreSearch";
+
 import Navigation from "../components/Navigation";
 import "./MainRoute.css";
 import {
@@ -10,6 +10,8 @@ import {
 import { store } from "../app/store";
 import { PodcastLibraryPage } from "../features/podcastLibrary/PodcastLibraryPage";
 import { PodcastLibraryFeed } from "../features/podcastLibrary/PodcastLibraryFeed";
+import { PodcastLibraryEpisode } from "../features/podcastLibrary/PodcastLibraryEpisode";
+import { PodcastStoreFeed } from "../features/podcastStore/PodcastStoreFeed";
 
 const searchLoader = (params) => {
   const url = new URL(params.request.url);
@@ -31,6 +33,14 @@ const podcastLibraryFeedLoader = (params) => {
     podcastId: params.params.podcastId,
   };
 };
+
+const podcastLibraryEpisodeLoader = (params) => {
+  return {
+    podcastId: params.params.podcastId,
+    episodeId: params.params.episodeId,
+  };
+};
+
 export const MainRoute = () => {
   return (
     <>
@@ -58,13 +68,18 @@ export const router = createBrowserRouter([
         loader: podcastLibraryFeedLoader,
       },
       {
+        path: "/library/:podcastId/:episodeId",
+        element: <PodcastLibraryEpisode />,
+        loader: podcastLibraryEpisodeLoader,
+      },
+      {
         path: "/search",
-        element: <SearchResults />,
+        element: <PodcastStoreSearch />,
         loader: searchLoader,
       },
       {
         path: "/podcast",
-        element: <SinglePodcastFeed />,
+        element: <PodcastStoreFeed />,
         loader: podcastFeedLoader,
       },
     ],
