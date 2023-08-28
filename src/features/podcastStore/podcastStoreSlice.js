@@ -39,6 +39,9 @@ const podcastStoreSlice = createSlice({
     resetSinglePodcastFeedStatus: (state) => {
       state.singlePodcastFeedRSS.status = "idle";
     },
+    setPocastFeedStatus: (state, action) => {
+      state.singlePodcastFeedRSS.status = action.payload;
+    },
   },
   extraReducers: {
     [getPodcastFeedRSS.pending]: (state) => {
@@ -82,7 +85,10 @@ export const selectSearchResultsStatus = (state) => {
   return state.podcastStore.searchResults.status;
 };
 
-export const { resetSearchStatus, resetSinglePodcastFeedStatus } =
-  podcastStoreSlice.actions;
+export const {
+  resetSearchStatus,
+  resetSinglePodcastFeedStatus,
+  setPocastFeedStatus,
+} = podcastStoreSlice.actions;
 
 export const podcastStoreReducer = podcastStoreSlice.reducer;

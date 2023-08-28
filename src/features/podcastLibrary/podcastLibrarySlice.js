@@ -1,5 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+
 import localforage from "localforage";
+import { fetchPodcastFeedRSS } from "../../app/api";
 
 const state = localforage.getItem("library");
 console.log(state);
@@ -7,6 +9,27 @@ const initialState = {
   librarySize: 0,
   podcasts: {},
 };
+
+export const updatePodcastFeed = createAsyncThunk(
+  "podcastLibrary/updatePodcastFeed",
+  async (podcastId, { getState }) => {
+    const state = getState();
+    const podcast = state.podcastLibrary.podcasts[podcastId];
+
+    const updated = fetchPodcastFeedRSS(podcast.url);
+
+    let updatedCount = 0;
+    let updatedArray = [];
+    for (let i = 0; i < podcast.episodes.length; i++) {
+      if (podcast.episodes[i].title === updated.episodes[updatedCount].title) {
+        return;
+      } else {
+        updatedArray.push(updated.episodes[updatedCount]);
+        updatedCount++;
+      }
+    }
+  }
+);
 
 const podcastLibrarySlice = createSlice({
   name: "podcastLibrary",
@@ -29,7 +52,7 @@ const podcastLibrarySlice = createSlice({
         action.payload.episodeId
       ].listened = true;
     },
-    marsEpisodeAsNotListened: (state, action) => {
+    markEpisodeAsNotListened: (state, action) => {
       state.podcasts[action.payload.podcastId].item[
         action.payload.episodeId
       ].listened = false;

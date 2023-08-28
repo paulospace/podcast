@@ -1,7 +1,7 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import { PodcastStoreSearch } from "../features/podcastStore/PodcastStoreSearch";
 
-import Navigation from "../components/Navigation";
+import Navigation from "../components/Navigation/Navigation";
 import "./MainRoute.css";
 import {
   resetSearchStatus,
@@ -23,8 +23,9 @@ const searchLoader = (params) => {
 const podcastFeedLoader = (params) => {
   const url = new URL(params.request.url);
   const podcastUrl = url.searchParams.get("url");
+  const ep = url.searchParams.get("ep");
   store.dispatch(resetSinglePodcastFeedStatus());
-  return { podcastUrl };
+  return { podcastUrl, ep };
 };
 
 const podcastLibraryFeedLoader = (params) => {

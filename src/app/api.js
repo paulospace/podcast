@@ -17,11 +17,9 @@ const fetchPodcastFeedRSS = async (feedURL) => {
       .then((data) => data.text())
       .then((data) => xmlParser.parse(data));
 
-    return parsePodcastFeed(res.rss.channel);
+    return parsePodcastFeed(res.rss.channel, feedURL);
   } catch (error) {
-    return {
-      ...error,
-    };
+    return error;
   }
 };
 
@@ -44,7 +42,7 @@ export const stringToHex = (string) => {
   return result;
 };
 
-export const parsePodcastFeed = (rss) => {
+export const parsePodcastFeed = (rss, url) => {
   const feed = {
     id: stringToHex(rss.title),
     title: rss.title,
@@ -54,6 +52,7 @@ export const parsePodcastFeed = (rss) => {
     link: rss.link,
     author: rss["itunes:owner"]["itunes:name"] || null,
     episodes: [],
+    url: url,
   };
 
   rss.item.forEach((item, i) => {
@@ -64,7 +63,6 @@ export const parsePodcastFeed = (rss) => {
 };
 
 const parsePodcastEpisode = (item) => {
-  console.log(item);
   const episode = {
     id: stringToHex(item.guid["#text"]),
     title: item.title,

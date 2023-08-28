@@ -49,7 +49,7 @@ const PodcastFeed = (props) => {
       <div className="PodcastFeed-Episodes">
         {props.podcast.episodes.map((episode, i) => {
           return (
-            <Link to={`/library/${props.podcast.title}/${episode.id}`} key={i}>
+            <Link to={`/podcast?url=${props.podcast.url}&ep=${i}`} key={i}>
               <div className="PodcastFeed-Episode">
                 <h3>{episode.title}</h3>
                 <div>

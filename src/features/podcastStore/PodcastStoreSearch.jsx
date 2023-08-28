@@ -6,7 +6,7 @@ import {
   selectSearchResultsStatus,
 } from "./podcastStoreSlice";
 import { useEffect } from "react";
-import { PodcastThumbnail } from "../../components/PodcastThumbnail";
+import { PodcastThumbnail } from "../../components/PodcastThumbnail/PodcastThumbnail";
 import { useLoaderData } from "react-router-dom";
 import "./PodcastStoreSearch.css";
 
