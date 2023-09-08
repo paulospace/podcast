@@ -55,14 +55,15 @@ export const parsePodcastFeed = (rss, url) => {
     url: url,
   };
 
-  rss.item.forEach((item, i) => {
-    feed.episodes[i] = parsePodcastEpisode(item);
+  let episodes = rss.item.toReversed();
+  episodes.forEach((item, i) => {
+    feed.episodes[i] = parsePodcastEpisode(item, url, i);
   });
 
   return feed;
 };
 
-const parsePodcastEpisode = (item) => {
+const parsePodcastEpisode = (item, podcastUrl, id) => {
   const episode = {
     id: stringToHex(item.guid["#text"]),
     title: item.title,
@@ -72,6 +73,7 @@ const parsePodcastEpisode = (item) => {
     pubDate: item.pubDate,
     explicit: item["itunes:explicit"] == "yes" ? true : false,
     time: item["itunes:duration"] || null,
+    url: `/podcast?url=${podcastUrl}&ep=${id}`,
   };
 
   return episode;

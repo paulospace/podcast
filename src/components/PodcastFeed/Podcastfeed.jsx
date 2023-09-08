@@ -47,9 +47,10 @@ const PodcastFeed = (props) => {
         </div>
       </div>
       <div className="PodcastFeed-Episodes">
-        {props.podcast.episodes.map((episode, i) => {
+        {props.podcast.episodes.toReversed().map((episode, i) => {
+          console.log(episode);
           return (
-            <Link to={`/podcast?url=${props.podcast.url}&ep=${i}`} key={i}>
+            <Link to={episode.url} key={i}>
               <div className="PodcastFeed-Episode">
                 <h3>{episode.title}</h3>
                 <div>
