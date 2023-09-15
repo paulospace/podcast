@@ -2,11 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import parse from "html-react-parser";
 import sanitize from "sanitize-html";
 import "./PodcastFeed.css";
-import {
-  addPodcastToLibrary,
-  removePodcastFromLibrary,
-  selectedPodcastIsSubscribed,
-} from "../../features/podcastLibrary/podcastLibrarySlice";
+
 import { Link } from "react-router-dom";
 
 const sanitizeHtmlConfig = {
@@ -14,19 +10,6 @@ const sanitizeHtmlConfig = {
   disallowedTagdMode: "discard",
 };
 const PodcastFeed = (props) => {
-  const dispatch = useDispatch();
-  const isSubscribed = useSelector((state) =>
-    selectedPodcastIsSubscribed(state, props.podcast.title)
-  );
-  const subscribeButtonClicked = () => {
-    if (!isSubscribed) {
-      dispatch(addPodcastToLibrary(props.podcast));
-    } else {
-      const payload = { podcastId: props.podcast.title };
-      dispatch(removePodcastFromLibrary(payload));
-    }
-  };
-
   return (
     <div className="PodcastFeed">
       <div className="PodcastFeed-Header">

@@ -8,9 +8,6 @@ import {
   resetSinglePodcastFeedStatus,
 } from "../features/podcastStore/podcastStoreSlice";
 import { store } from "../app/store";
-import { PodcastLibraryPage } from "../features/podcastLibrary/PodcastLibraryPage";
-import { PodcastLibraryFeed } from "../features/podcastLibrary/PodcastLibraryFeed";
-import { PodcastLibraryEpisode } from "../features/podcastLibrary/PodcastLibraryEpisode";
 import { PodcastStoreFeed } from "../features/podcastStore/PodcastStoreFeed";
 
 const searchLoader = (params) => {
@@ -26,20 +23,6 @@ const podcastFeedLoader = (params) => {
   const ep = url.searchParams.get("ep");
   store.dispatch(resetSinglePodcastFeedStatus());
   return { podcastUrl, ep };
-};
-
-const podcastLibraryFeedLoader = (params) => {
-  console.log(params);
-  return {
-    podcastId: params.params.podcastId,
-  };
-};
-
-const podcastLibraryEpisodeLoader = (params) => {
-  return {
-    podcastId: params.params.podcastId,
-    episodeId: params.params.episodeId,
-  };
 };
 
 export const MainRoute = () => {
@@ -59,20 +42,6 @@ export const router = createBrowserRouter([
     path: "/",
     element: <MainRoute />,
     children: [
-      {
-        path: "/",
-        element: <PodcastLibraryPage />,
-      },
-      {
-        path: "library/:podcastId",
-        element: <PodcastLibraryFeed />,
-        loader: podcastLibraryFeedLoader,
-      },
-      {
-        path: "/library/:podcastId/:episodeId",
-        element: <PodcastLibraryEpisode />,
-        loader: podcastLibraryEpisodeLoader,
-      },
       {
         path: "/search",
         element: <PodcastStoreSearch />,
