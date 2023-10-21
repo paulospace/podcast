@@ -1,3 +1,16 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap');
+
+#root {
+  display: flex;
+  width: 100%;
+  flex-grow: 1;
+  font-family: 'Open Sans', sans-serif;
+}
+ h1 {
+  font-size: 2.25rem;
+ }
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -30,10 +43,7 @@ body {
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
+
 
 button {
   border-radius: 8px;

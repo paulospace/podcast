@@ -17,12 +17,11 @@ export const PodcastStoreFeed = () => {
   const dispatch = useDispatch();
   let podcastFeed = useSelector(selectSinglePodcastFeedFromStore);
   let status = useSelector(selectSinglePodcastFeedStatus);
-  console.log(podcastFeed);
+
   useEffect(
     () => {
       if (status === "idle") {
-        if (podcastUrl === podcastFeed.url) {
-          console.log("1");
+        if (podcastFeed) {
           dispatch(setPocastFeedStatus("success"));
         } else dispatch(getPodcastFeedRSS(podcastUrl));
       }
@@ -31,7 +30,7 @@ export const PodcastStoreFeed = () => {
   );
 
   let content;
-
+  console.log(podcastFeed);
   if (!hasValidURL) {
     content = <div className="error">No Podcast Feed URL</div>;
   } else if (status === "error") {
@@ -40,7 +39,15 @@ export const PodcastStoreFeed = () => {
     content = <div className="loading">Loading...</div>;
   } else if (status === "success") {
     if (ep) content = <PodcastEpisode episode={podcastFeed.episodes[ep]} />;
-    else if (podcastFeed) content = <PodcastFeed podcast={podcastFeed} />;
+    else if (podcastFeed)
+      content = (
+        <PodcastFeed
+          image={podcastFeed.image.url}
+          title={podcastFeed.title}
+          description={podcastFeed.description}
+          episodes={podcastFeed.episodes}
+        />
+      );
   }
 
   return <>{content}</>;

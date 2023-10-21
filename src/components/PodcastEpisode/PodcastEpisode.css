@@ -1,0 +1,29 @@
+.PodcastEpisode {
+    color: #000000;
+}
+
+.PodcastEpisode a {
+    color: #000000
+}
+
+.PodcastEpisode-header {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    margin: 0 0 3rem 0;
+}
+.PodcastEpisode-header-image {
+    width: 200px;
+}
+
+.PodcastEpisode-header-image img{
+    width: 100%;
+}
+
+.PodcastEpisode-header-title h1 {
+    margin: 0;
+    padding: 0 0 0 1rem
+}
+
+.PodcastEpisode a {
+    text-decoration: underline;
+}

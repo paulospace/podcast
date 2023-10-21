@@ -1,6 +1,7 @@
 .PodcastFeed-Header {
     width: 100%;
-    display: grid;
+    display: flex;
+    margin: 0 0 3rem 0;
 }
 
 .PodcastFeed-Header-image {
@@ -8,4 +9,35 @@
 }
 .PodcastFeed-Header-image img {
     width: 200px;
+}
+
+.PodcastFeed-Header-info {
+    padding: 0 0 0 2rem ;
+}
+
+.PodcastFeed-Header-info h1 {
+    margin: 0 0 1rem 0;
+    font-size: 2.25rem;
+}
+
+.PodcastFeed-Episode {
+    padding: 1rem;
+    margin: 0 0 1rem 0;
+    background: #ffffff;
+}
+
+.PodcastFeed-Episode a {
+    color: #000000;
+}
+
+.PodcastFeed-Episode:hover {
+    background-color: rgba(0, 0, 0, 0.25);
+}
+.PodcastFeed-Episode:hover a{
+    color: #000000;
+}
+
+.PodcastFeed-Episode h2 {
+    margin: 0 0  1rem 0;
+    font-size: 1.5rem;
 }

@@ -1,21 +1,22 @@
 import { Link } from "react-router-dom";
+
 import "./PodcastThumbnail.css";
 
-const PodcastThumbnail = ({ podcast }) => {
-  const link = `/podcast?url=${podcast.feedUrl}`;
+const PodcastThumbnail = ({ feedUrl, artwork, name, artistName }) => {
+  const link = `/podcast?url=${feedUrl}`;
 
   return (
-    <Link to={link}>
-      <div className="PodcastThumbnail">
+    <div className="PodcastThumbnail">
+      <Link to={link}>
         <div className="PodcastThumbnail-image">
-          <img src={podcast.artworkUrl600} />
+          <img src={artwork} />
         </div>
         <div className="PodcastThumbnail-info">
-          <div className="PodcastThumbnail-name">{podcast.collectionName}</div>
-          <div className="PodcastThumbnail-author">{podcast.artistName}</div>
+          <div className="PodcastThumbnail-name">{name}</div>
+          <div className="PodcastThumbnail-author">{artistName}</div>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 };
 

@@ -1,0 +1,13 @@
+.SearchResultsPage {
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.SearchResultsPage-results {
+    display: flex;
+    
+    flex-wrap: wrap;
+}
+

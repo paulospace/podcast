@@ -1,15 +1,18 @@
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import { createBrowserRouter, Outlet, useNavigate } from "react-router-dom";
 import { PodcastStoreSearch } from "../features/podcastStore/PodcastStoreSearch";
 
-import Navigation from "../components/Navigation/Navigation";
 import "./MainRoute.css";
 import {
   resetSearchStatus,
   resetSinglePodcastFeedStatus,
+  selectCurrentPlaying,
 } from "../features/podcastStore/podcastStoreSlice";
 import { store } from "../app/store";
 
 import { PodcastStoreFeed } from "../features/podcastStore/PodcastStoreFeed";
+import { PodcastPlayer } from "../components/PodcastPlayer/PodcastPlayer";
+import { SearchBar } from "../components/SearchBar/SearchBar";
+import { useSelector } from "react-redux";
 
 const searchLoader = (params) => {
   const url = new URL(params.request.url);
@@ -27,12 +30,25 @@ const podcastFeedLoader = (params) => {
 };
 
 export const MainRoute = () => {
+  const navigate = useNavigate();
+  const onSearchSubmit = (query) => {
+    navigate(`/search?q=${query}`);
+  };
+  const currentPlaying = useSelector(selectCurrentPlaying);
+  console.log(currentPlaying);
   return (
     <>
-      <Navigation />
       <div className="mainContent">
-        <Outlet />
+        <div className="mainContent-container">
+          <SearchBar onSearchSubmit={onSearchSubmit} />
+          <Outlet />
+        </div>
       </div>
+      <PodcastPlayer
+        audio={currentPlaying ? currentPlaying.content["@_url"] : null}
+        episodeUrl={currentPlaying ? currentPlaying.url : null}
+        episodeArtWork={currentPlaying ? currentPlaying.image : null}
+      />
     </>
   );
 };

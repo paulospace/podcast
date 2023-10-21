@@ -8,41 +8,36 @@ const sanitizeHtmlConfig = {
   allowedTags: [],
   disallowedTagdMode: "discard",
 };
-const PodcastFeed = (props) => {
+const PodcastFeed = ({ image, title, description, episodes }) => {
+  console.log(episodes);
   return (
     <div className="PodcastFeed">
       <div className="PodcastFeed-Header">
         <div className="PodcastFeed-Header-image">
-          <img src={props.podcast.image.url} />
+          <img src={image} />
         </div>
         <div className="PodcastFeed-Header-info">
-          <h2>{props.podcast.title}</h2>
+          <h1>{title}</h1>
           <div className="PodcastFeed-Header-description">
-            {parse(props.podcast.description)}
+            {parse(description)}
           </div>
-        </div>
-
-        <div className="SubscribeButton">
-          <button onClick={subscribeButtonClicked}>
-            {isSubscribed ? "Unsubscribe" : "Subscribe"}
-          </button>
         </div>
       </div>
       <div className="PodcastFeed-Episodes">
-        {props.podcast.episodes.toReversed().map((episode, i) => {
+        {episodes.toReversed().map((episode, i) => {
           console.log(episode);
           return (
-            <Link to={episode.url} key={i}>
-              <div className="PodcastFeed-Episode">
-                <h3>{episode.title}</h3>
+            <div className="PodcastFeed-Episode" key={i}>
+              <Link to={episode.url}>
+                <h2>{episode.title}</h2>
                 <div>
                   {`${sanitize(episode.description, sanitizeHtmlConfig).slice(
                     0,
                     300
                   )}...`}
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </div>
           );
         })}
       </div>

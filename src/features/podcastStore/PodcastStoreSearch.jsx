@@ -1,14 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-
 import {
   searchItunesForPodcast,
   selectSearchResults,
   selectSearchResultsStatus,
 } from "./podcastStoreSlice";
 import { useEffect } from "react";
-import { PodcastThumbnail } from "../../components/PodcastThumbnail/PodcastThumbnail";
 import { useLoaderData } from "react-router-dom";
-import "./PodcastStoreSearch.css";
+import { SearchResultsPage } from "../../pages/SearchResultsPage";
 
 export const PodcastStoreSearch = () => {
   const { query } = useLoaderData();
@@ -31,9 +29,9 @@ export const PodcastStoreSearch = () => {
   if (!hasQuery) {
     content = <div>No Query Specified</div>;
   } else if (status === "success") {
-    content = searchResults.results.map((podcast) => {
-      return <PodcastThumbnail podcast={podcast} key={podcast.collectionId} />;
-    });
+    content = (
+      <SearchResultsPage searchResults={searchResults.results} query={query} />
+    );
   }
 
   return <div className="SearchResults">{content}</div>;

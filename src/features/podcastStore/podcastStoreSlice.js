@@ -13,6 +13,10 @@ const initialState = {
     status: "idle",
     error: null,
   },
+  currentPlaying: {
+    podcast: null,
+    status: false,
+  },
 };
 
 export const getPodcastFeedRSS = createAsyncThunk(
@@ -41,6 +45,13 @@ const podcastStoreSlice = createSlice({
     },
     setPocastFeedStatus: (state, action) => {
       state.singlePodcastFeedRSS.status = action.payload;
+    },
+    setCurrentPlayngPodcast: (state, action) => {
+      state.currentPlaying.podcast = action.payload;
+      state.currentPlaying.status = true;
+    },
+    setCurrentPlayingStatus: (state, action) => {
+      state.currentPlaying.status = action.payload;
     },
   },
   extraReducers: {
@@ -85,10 +96,16 @@ export const selectSearchResultsStatus = (state) => {
   return state.podcastStore.searchResults.status;
 };
 
+export const selectCurrentPlaying = (state) => {
+  return state.podcastStore.currentPlaying.podcast;
+};
+
 export const {
   resetSearchStatus,
   resetSinglePodcastFeedStatus,
   setPocastFeedStatus,
+  setCurrentPlayngPodcast,
+  setCurrentPlayingStatus,
 } = podcastStoreSlice.actions;
 
 export const podcastStoreReducer = podcastStoreSlice.reducer;
