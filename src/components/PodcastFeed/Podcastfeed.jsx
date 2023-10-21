@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from "react-redux";
 import parse from "html-react-parser";
 import sanitize from "sanitize-html";
 import "./PodcastFeed.css";
