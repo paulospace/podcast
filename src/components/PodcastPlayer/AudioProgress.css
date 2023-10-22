@@ -1,0 +1,23 @@
+:root {
+    --progress-width: 0;
+    --buffered-width: 0;
+}
+
+.PodcastPlayer-AudioProgress {
+    display: flex;
+    width: 100%;
+    max-width: 1000px;
+    padding: 1rem;
+}
+
+.PodcastPlayer-AudioProgress input {
+    width: 100%;
+    flex-grow: 1;
+    accent-color: #000000;
+}
+
+.PodcastPlayer-AudioProgress input::-webkit-slider-thumb {
+    z-index: 4;
+    position: relative;
+}
+

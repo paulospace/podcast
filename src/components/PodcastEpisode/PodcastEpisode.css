@@ -27,3 +27,21 @@
 .PodcastEpisode a {
     text-decoration: underline;
 }
+
+.PodcastEpisode-play-button  {
+    padding: 0;
+    margin: 1rem;
+    background: none;
+}
+
+.PodcastEpisode-play-button svg  {
+    width: 24px;
+    height: 24px;
+    fill: rgba(0,0,0, 1);
+    stroke: rgba(0,0,0, 1)
+}
+
+.PodcastEpisode-play-button svg  {
+    fill: rgba(0,0,0, 0.5);
+    stroke: rgba(0,0,0, 0.5);
+}

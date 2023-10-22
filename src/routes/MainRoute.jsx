@@ -47,7 +47,7 @@ export const MainRoute = () => {
       <PodcastPlayer
         audio={currentPlaying ? currentPlaying.content["@_url"] : null}
         episodeUrl={currentPlaying ? currentPlaying.url : null}
-        episodeArtWork={currentPlaying ? currentPlaying.image : null}
+        episodeArtwork={currentPlaying ? currentPlaying.image : null}
       />
     </>
   );

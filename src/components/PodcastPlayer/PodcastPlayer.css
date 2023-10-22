@@ -1,0 +1,48 @@
+.PodcastPlayer {
+    width: 100%;
+    height: 100px;
+    position: fixed;
+    bottom: 0;
+    background: #ffffffff;
+}
+
+.PodcastPlayer-ui {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 100px 1fr;
+}
+
+.PodcastPlayer-ui-image {
+    width: 100px;
+    height: 100px;
+}
+
+.PodcastPlayer-ui-image img {
+    width: 100%;
+}
+
+.PodcastPlayer-player {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.PodcastPlayer-player-controls svg {
+    width: 24px;
+    height: 24px;
+}
+
+.PodcastPlayer-player-controls button {
+    background: none;
+}
+
+.PodcastPlayer-player-controls button svg  {
+    fill: rgba(0,0,0, 1);
+    stroke: rgba(0,0,0, 1)
+}
+
+.PodcastPlayer-player-controls button:hover svg  {
+    fill: rgba(0,0,0, 0.5);
+    stroke: rgba(0,0,0, 0.5);
+}

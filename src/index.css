@@ -5,6 +5,7 @@
   display: flex;
   width: 100%;
   flex-grow: 1;
+  flex-direction: column;
   font-family: 'Open Sans', sans-serif;
 }
  h1 {
