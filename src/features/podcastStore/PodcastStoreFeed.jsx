@@ -7,8 +7,8 @@ import {
   selectSinglePodcastFeedStatus,
   setPocastFeedStatus,
 } from "./podcastStoreSlice";
-import PodcastFeed from "../../components/PodcastFeed/Podcastfeed";
-import { PodcastEpisode } from "../../components/PodcastEpisode/PodcastEpisode";
+import PodcastFeed from "../../pages/PodcastFeed/Podcastfeed";
+import { PodcastEpisode } from "../../pages/PodcastEpisode/PodcastEpisode";
 
 export const PodcastStoreFeed = () => {
   const { podcastUrl, ep } = useLoaderData();

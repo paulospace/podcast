@@ -6,7 +6,7 @@ import {
 } from "./podcastStoreSlice";
 import { useEffect } from "react";
 import { useLoaderData } from "react-router-dom";
-import { SearchResultsPage } from "../../pages/SearchResultsPage";
+import { SearchResultsPage } from "../../pages/SearchResultsPage/SearchResultsPage";
 
 export const PodcastStoreSearch = () => {
   const { query } = useLoaderData();
