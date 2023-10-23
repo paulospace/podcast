@@ -35,7 +35,6 @@ export const MainRoute = () => {
     navigate(`/search?q=${query}`);
   };
   const currentPlaying = useSelector(selectCurrentPlaying);
-  console.log(currentPlaying);
   return (
     <>
       <div className="mainContent">

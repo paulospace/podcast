@@ -7,12 +7,7 @@ import "./PodcastPlayer.css";
 
 // React Audio Player based on https://jeffsegovia.dev/blogs/building-an-audio-player-with-reactjs
 
-export const PodcastPlayer = ({
-  audio,
-  audioName,
-  episodeUrl,
-  episodeArtwork,
-}) => {
+export const PodcastPlayer = ({ audio, episodeUrl, episodeArtwork }) => {
   const audioRef = useRef();
 
   const [duration, setDuration] = useState(0);
@@ -24,6 +19,7 @@ export const PodcastPlayer = ({
   useEffect(() => {
     audioRef.current?.load();
   }, [audio]);
+
   const handleBufferProgress = (e) => {
     const audio = e.currentTarget;
     const dur = audio.duration;
@@ -68,6 +64,7 @@ export const PodcastPlayer = ({
         <audio
           ref={audioRef}
           preload="metadata"
+          autoPlay="true"
           onDurationChange={(e) => setDuration(e.currentTarget.duration)}
           onCanPlay={() => setIsReady(true)}
           onPlaying={() => setIsPlaying(true)}

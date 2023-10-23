@@ -42,6 +42,16 @@
     border: none;
 }
 
+.PodcastPlayer-player-controls button:focus {
+    outline: none;
+    border: none;
+}
+
+.PodcastPlayer-player-controls button:focus-visible {
+    outline: none;
+    border: none;
+}
+
 .PodcastPlayer-player-controls button svg  {
     fill: rgba(0,0,0, 1);
     stroke: rgba(0,0,0, 1);
@@ -50,11 +60,10 @@
 
 
 .PodcastPlayer-player-controls button:hover svg  {
-    fill: rgba(0,0,0, 0.5);
-    stroke: rgba(0,0,0, 0.5);
+    fill: #7f7f7f;
+    stroke: #7f7f7f;
 }
 
 .PodcastPlayer-player-controls button:active svg {
     transform:scale(0.5);
-    
 }

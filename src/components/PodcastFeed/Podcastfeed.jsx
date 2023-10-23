@@ -8,7 +8,9 @@ const sanitizeHtmlConfig = {
   allowedTags: [],
   disallowedTagdMode: "discard",
 };
+
 const PodcastFeed = ({ image, title, description, episodes }) => {
+  console.log(new Date(episodes[0].pubDate));
   return (
     <div className="PodcastFeed">
       <div className="PodcastFeed-Header">
@@ -24,9 +26,13 @@ const PodcastFeed = ({ image, title, description, episodes }) => {
       </div>
       <div className="PodcastFeed-Episodes">
         {episodes.toReversed().map((episode, i) => {
+          const pubDate = new Date(episode.pubDate);
           return (
             <div className="PodcastFeed-Episode" key={i}>
               <Link to={episode.url}>
+                <div className="PodcastFeed-Episode-date">
+                  {pubDate.toLocaleDateString("us-US")}
+                </div>
                 <h2>{episode.title}</h2>
                 <div>
                   {`${sanitize(episode.description, sanitizeHtmlConfig).slice(

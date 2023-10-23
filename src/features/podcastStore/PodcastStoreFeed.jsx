@@ -32,7 +32,6 @@ export const PodcastStoreFeed = () => {
   );
 
   let content;
-  console.log(podcastFeed);
   if (!hasValidURL) {
     content = <div className="error">No Podcast Feed URL</div>;
   } else if (status === "error") {

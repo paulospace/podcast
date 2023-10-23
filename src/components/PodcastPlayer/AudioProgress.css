@@ -4,7 +4,8 @@
 }
 
 .PodcastPlayer-AudioProgress {
-    display: flex;
+    display: grid;
+    grid-template-columns: 5fr 1fr;
     width: 100%;
     max-width: 1000px;
     box-sizing: border-box;
@@ -20,5 +21,10 @@
 .PodcastPlayer-AudioProgress input::-webkit-slider-thumb {
     z-index: 4;
     position: relative;
+}
+
+.PodcastPlayer-AudioProgress-timeElapsed {
+    margin: 0 0 0 1rem;
+    color: #525252;
 }
 
