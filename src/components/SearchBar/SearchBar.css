@@ -7,6 +7,13 @@
 }
 
 .SearchBar input {
+    max-with: 700px;
     padding: 0.5rem;
     align-self: flex-end;
+}
+
+@media (max-width: 700px) {
+    .SearchBar input {
+        width: 100%;
+    }
 }

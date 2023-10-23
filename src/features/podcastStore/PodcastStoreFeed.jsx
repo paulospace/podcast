@@ -22,7 +22,9 @@ export const PodcastStoreFeed = () => {
     () => {
       if (status === "idle") {
         if (podcastFeed) {
-          dispatch(setPocastFeedStatus("success"));
+          if (podcastFeed == podcastUrl) {
+            dispatch(setPocastFeedStatus("success"));
+          } else dispatch(getPodcastFeedRSS(podcastUrl));
         } else dispatch(getPodcastFeedRSS(podcastUrl));
       }
     },

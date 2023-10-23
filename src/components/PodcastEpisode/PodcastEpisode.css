@@ -29,9 +29,16 @@
 }
 
 .PodcastEpisode-play-button  {
-    padding: 0;
+    padding: 1rem;
     margin: 1rem;
-    background: none;
+    background: #000000;
+    color: #ffffff;
+    font-weight: 800;
+    transition: background 0.1s ease-in-out;
+}
+
+.PodcastEpisode-play-button:active {
+    background: rgba(0,0,0, 0.5);
 }
 
 .PodcastEpisode-play-button svg  {
@@ -44,4 +51,11 @@
 .PodcastEpisode-play-button svg  {
     fill: rgba(0,0,0, 0.5);
     stroke: rgba(0,0,0, 0.5);
+}
+
+@media (max-width: 700px) {
+    .PodcastEpisode-header {
+        grid-template-columns: none;
+        justify-items: center;
+    }
 }

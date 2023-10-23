@@ -4,8 +4,10 @@
   display: flex;
   justify-content: center;
   margin-bottom: 150px;
+  
 }
 
 .mainContent-container {
   max-width: 1000px;
+  padding: 2rem;
 }

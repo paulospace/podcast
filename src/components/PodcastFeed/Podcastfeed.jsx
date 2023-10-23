@@ -9,7 +9,6 @@ const sanitizeHtmlConfig = {
   disallowedTagdMode: "discard",
 };
 const PodcastFeed = ({ image, title, description, episodes }) => {
-  console.log(episodes);
   return (
     <div className="PodcastFeed">
       <div className="PodcastFeed-Header">
@@ -25,7 +24,6 @@ const PodcastFeed = ({ image, title, description, episodes }) => {
       </div>
       <div className="PodcastFeed-Episodes">
         {episodes.toReversed().map((episode, i) => {
-          console.log(episode);
           return (
             <div className="PodcastFeed-Episode" key={i}>
               <Link to={episode.url}>
