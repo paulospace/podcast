@@ -7,7 +7,7 @@
 }
 
 .SearchBar input {
-    max-with: 700px;
+    max-width: 700px;
     padding: 0.5rem;
     align-self: flex-end;
 }
